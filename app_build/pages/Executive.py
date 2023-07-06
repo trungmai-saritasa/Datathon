@@ -624,6 +624,8 @@ with tab2:
 
 # plot 3
 
+st.markdown("#### 3. Lợi nhuận và số lượng")
+
 df_market_pie = df.groupby(df['market'])['order_id'].count()
 fig_col1, fig_col2 = st.columns([5, 5])
 with fig_col1:
