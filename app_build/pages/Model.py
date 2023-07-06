@@ -22,8 +22,8 @@ st.set_page_config(
 )
 
 df = pd.read_excel("app_build/MDSInc_sales.xlsx")
-df_2 = pd.read_csv("./app_build/Q12_2014.csv")
-df_2014 = pd.read_csv("./app_build/Q12_2014.csv")
+df_2 = pd.read_csv("app_build/Q12_2014.csv", encoding_errors='ignore')
+df_2014 = pd.read_csv("app_build/Q12_2014.csv", encoding_errors='ignore')
 df_2014["order_date"] = pd.to_datetime(df["order_date"])
 df["order_date"] = pd.to_datetime(df["order_date"])
 
@@ -42,7 +42,7 @@ with col3:
 
 # Tiền xử lý dữ liệu -----------------------------------
 
-cleaned_df = df.groupby("customer_name").sum().reset_index()
+cleaned_df = df.groupby(["customer_name"]).agg({'sales': 'sum', 'quantity': 'sum', 'shipping_cost': 'sum', 'profit': 'sum', 'discount': 'sum'}).reset_index()
 new_df = cleaned_df.drop("customer_name", axis=1).to_numpy()
 
 st.markdown("## Customer Segmentation")
@@ -164,7 +164,7 @@ st.info(""" **Đề xuất:**
 
 """, icon="ℹ️")
 
-linear_df = df.groupby("order_date").sum().reset_index()
+linear_df = df.groupby(["order_date"]).agg({'sales': 'sum', 'quantity': 'sum', 'shipping_cost': 'sum', 'profit': 'sum', 'discount': 'sum'}).reset_index()
 linear_df = linear_df.drop("order_date", axis=1)
 
 y = linear_df.iloc[:, 0]
@@ -258,7 +258,7 @@ st.info(""" **Dự đoán doanh thu:**
 
 """, icon="ℹ️")
 
-cleaned_df = df.groupby(df["order_date"]).sum().reset_index()
+cleaned_df = df.groupby(df["order_date"]).agg({'sales': 'sum', 'quantity': 'sum', 'shipping_cost': 'sum', 'profit': 'sum', 'discount': 'sum'}).reset_index()
 cleaned_df = cleaned_df.drop(["order_date", "discount", "profit"], axis=1)
 
 fig = go.Figure()
@@ -289,7 +289,7 @@ st.info(""" **Nhận xét:**
 
 """, icon="ℹ️")
 
-df_2 = df_2.groupby("order_date").sum().reset_index()
+df_2 = df_2.groupby(["order_date"]).agg({'sales': 'sum', 'quantity': 'sum', 'shipping_cost': 'sum', 'profit': 'sum', 'discount': 'sum'}).reset_index()
 test_df = df_2.drop("order_date", axis=1)
 
 test_X = test_df.iloc[:, 1:]
@@ -297,7 +297,7 @@ y_true = test_df.iloc[:, 0]
 
 y_test = model2.predict(test_X)
 temp = y_true.to_numpy().reshape(-1, 1)
-df_2["order_date"] = pd.to_datetime(df_2["order_date"]).dt.strftime("%d-%b-%Y")
+df_2["order_date"] = pd.to_datetime(df_2["order_date"], format="mixed", dayfirst=True).dt.strftime("%d-%b-%Y")
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=list(df_2["order_date"].values), y=y_test, mode='lines', name='True Sales', line=dict(color='green')))
@@ -378,7 +378,7 @@ st.info(""" **Nhận xét:**
 
 """, icon="ℹ️")
 
-df_2014 = df_2014.groupby("order_date").sum().reset_index()
+df_2014 = df_2014.groupby(["order_date"]).agg({'sales': 'sum', 'quantity': 'sum', 'shipping_cost': 'sum', 'profit': 'sum', 'discount': 'sum'}).reset_index()
 dates = df_2014["order_date"].dt.strftime("%d-%b-%Y")
 
 df_2014 = df_2014.drop(["order_date", "discount", "profit"], axis=1)
