@@ -538,7 +538,7 @@ with tab2:
 
 # plot 3
 
-st.markdown("#### 2. Các nền tảng học tập nào được các kỹ sư và các học sinh tin dùng nhất?")
+st.markdown("#### 3. Lợi nhuận và số lượng")
 
 df_market_pie = df.groupby(df['market'])['order_id'].count()
 fig_col1, fig_col2 = st.columns([5, 5])
@@ -602,7 +602,7 @@ with col_tab1_2:
     st.plotly_chart(df_salary_tab5,use_container_width=True,height=800)
 
 # plot 5
-st.markdown("### 3. Top 10")
+st.markdown("### 4. Top 10")
 tab1, tab2, tab3 = st.tabs(["Top 10 sales product", "Top 10 quantity product", "Top 10 customers"])
 with tab1:
     products_sales = pd.DataFrame(df.groupby('product_name')["sales"].sum())
