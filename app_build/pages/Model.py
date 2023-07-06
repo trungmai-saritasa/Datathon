@@ -64,7 +64,7 @@ st.info(""" **Phân loại khách hàng:**
 sum_distances = []
 K = range(1,15)
 for k in K:
-  k_mean = KMeans(n_clusters=k)
+  k_mean = KMeans(n_clusters=k, n_init=2)
   k_mean.fit(new_df)
   sum_distances.append(k_mean.inertia_)
 
@@ -85,7 +85,7 @@ st.info(""" **Elbow method:**
 """, icon="ℹ️")
 st.write("Số phân cụm tốt nhất: `n = 2`")
 
-k_mean_2 = KMeans(n_clusters=2)
+k_mean_2 = KMeans(n_clusters=2, n_init=2)
 model = k_mean_2.fit(new_df)
 result = k_mean_2.labels_
 
@@ -279,6 +279,7 @@ st.plotly_chart(fig)
 model2 = lr().fit(X_train, y_train)
 pred = model2.predict(X_test)
 result2 = pd.DataFrame(pred, columns=['sales'], index=X_test.index)
+# st.write("Bộ param tốt nhất:", linear.best_params_)
 st.write('MSE of biased model:', metrics.mean_squared_error(y_test, pred))
 st.write('MAE of biased model:', metrics.mean_absolute_error(y_test, pred))
 st.write('Model score:', model2.score(X_test, y_test))
