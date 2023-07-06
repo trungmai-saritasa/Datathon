@@ -25,9 +25,7 @@ with col2:
 with col3:
     st.write("")
 
-st.markdown("##### Overview", unsafe_allow_html=True)
-
-
+st.markdown("## 1. Tổng quan")
 # plot 0
 st.markdown("##### Bộ lọc năm toàn cục:", unsafe_allow_html=True)
 
@@ -46,7 +44,8 @@ df_pre_year = df[df["order_date"].dt.year == pre_year]
 df_describe = df_year.describe().round(2).T
 df_describe_pre = df_pre_year.describe().round(2).T
 
-st.markdown("## 1. Tổng quan")
+
+st.markdown("##### Tổng quan chỉ số của các năm:", unsafe_allow_html=True)
 tab1, tab2, tab3 = st.tabs(["Profit", "Sales", "Quantity"])
 with tab1:
     stats_age_col1, _ = st.columns(2)
@@ -71,7 +70,7 @@ with tab3:
     )
 
 
-tab1, tab2, tab3 = st.tabs(["Profit", "Sales", "Quantity"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Profit", "Sales", "Quantity","Discount","Shipping Cost"])
 # Tạo các cột để hiển thị thông số thống kê (P1):
 with tab1:
     stats_age_col1, stats_age_col2, stats_age_col3, stats_age_col4 = st.columns(4)
@@ -205,8 +204,97 @@ with tab3:
         value=df_describe.loc["quantity"].loc["max"],
         delta=round(df_describe.loc["quantity"].loc["max"] - df_describe_pre.loc["quantity"].loc["max"], 2),
     )
+with tab4:
+    stats_age_col1, stats_age_col2, stats_age_col3, stats_age_col4 = st.columns(4)
+    stats_age_col1.metric(
+        label="Mean",
+        value=df_describe.loc["discount"].loc["mean"],
+        delta=round(df_describe.loc["discount"].loc["mean"] - df_describe_pre.loc["discount"].loc["mean"], 2),
+    )
+    stats_age_col2.metric(
+        label="Median",
+        value=df_describe.loc["discount"].loc["50%"],
+        delta=round(df_describe.loc["discount"].loc["50%"] - df_describe_pre.loc["discount"].loc["50%"], 2),
+    )
+    stats_age_col3.metric(
+        label="Std",
+        value=df_describe.loc["discount"].loc["std"],
+        delta=round(df_describe.loc["discount"].loc["std"] - df_describe_pre.loc["discount"].loc["std"], 2),
+    )
+    stats_age_col4.metric(
+        label="Count",
+        value=int(df_describe.loc["discount", "count"]),
+        delta=round(df_describe.loc["discount"].loc["count"] - df_describe_pre.loc["discount"].loc["count"], 2),
+    )
+
+    stats_age_col5, stats_age_col6, stats_age_col7, stats_age_col8 = st.columns(4)
+    stats_age_col5.metric(
+        label="25%",
+        value=df_describe.loc["discount"].loc["25%"],
+        delta=round(df_describe.loc["discount"].loc["25%"] - df_describe_pre.loc["discount"].loc["25%"], 2),
+    )
+    stats_age_col6.metric(
+        label="75%",
+        value=df_describe.loc["discount"].loc["max"],
+        delta=round(df_describe.loc["discount"].loc["max"] - df_describe_pre.loc["discount"].loc["max"], 2),
+    )
+    stats_age_col7.metric(
+        label="Min",
+        value=df_describe.loc["discount"].loc["min"],
+        delta=round(df_describe.loc["discount"].loc["min"] - df_describe_pre.loc["discount"].loc["min"], 2),
+    )
+    stats_age_col8.metric(
+        label="Max",
+        value=df_describe.loc["discount"].loc["max"],
+        delta=round(df_describe.loc["discount"].loc["max"] - df_describe_pre.loc["discount"].loc["max"], 2),
+    )
+with tab5:
+    stats_age_col1, stats_age_col2, stats_age_col3, stats_age_col4 = st.columns(4)
+    stats_age_col1.metric(
+        label="Mean",
+        value=df_describe.loc["shipping_cost"].loc["mean"],
+        delta=round(df_describe.loc["shipping_cost"].loc["mean"] - df_describe_pre.loc["shipping_cost"].loc["mean"], 2),
+    )
+    stats_age_col2.metric(
+        label="Median",
+        value=df_describe.loc["shipping_cost"].loc["50%"],
+        delta=round(df_describe.loc["shipping_cost"].loc["50%"] - df_describe_pre.loc["shipping_cost"].loc["50%"], 2),
+    )
+    stats_age_col3.metric(
+        label="Std",
+        value=df_describe.loc["shipping_cost"].loc["std"],
+        delta=round(df_describe.loc["shipping_cost"].loc["std"] - df_describe_pre.loc["shipping_cost"].loc["std"], 2),
+    )
+    stats_age_col4.metric(
+        label="Count",
+        value=int(df_describe.loc["shipping_cost", "count"]),
+        delta=round(df_describe.loc["shipping_cost"].loc["count"] - df_describe_pre.loc["shipping_cost"].loc["count"], 2),
+    )
+
+    stats_age_col5, stats_age_col6, stats_age_col7, stats_age_col8 = st.columns(4)
+    stats_age_col5.metric(
+        label="25%",
+        value=df_describe.loc["shipping_cost"].loc["25%"],
+        delta=round(df_describe.loc["shipping_cost"].loc["25%"] - df_describe_pre.loc["shipping_cost"].loc["25%"], 2),
+    )
+    stats_age_col6.metric(
+        label="75%",
+        value=df_describe.loc["shipping_cost"].loc["max"],
+        delta=round(df_describe.loc["shipping_cost"].loc["max"] - df_describe_pre.loc["shipping_cost"].loc["max"], 2),
+    )
+    stats_age_col7.metric(
+        label="Min",
+        value=df_describe.loc["shipping_cost"].loc["min"],
+        delta=round(df_describe.loc["shipping_cost"].loc["min"] - df_describe_pre.loc["shipping_cost"].loc["min"], 2),
+    )
+    stats_age_col8.metric(
+        label="Max",
+        value=df_describe.loc["shipping_cost"].loc["max"],
+        delta=round(df_describe.loc["shipping_cost"].loc["max"] - df_describe_pre.loc["shipping_cost"].loc["max"], 2),
+    )
 
 # plot 2
+st.markdown("##### Doanh số bán hàng theo từng tháng:", unsafe_allow_html=True)
 tab1, tab2, tab3 = st.tabs(["Sales", "Quantity", "Profit"])
 with tab1:
     df_sales_by_month = df[df["order_date"].dt.year == year_filter]
@@ -300,9 +388,10 @@ with tab3:
     st.plotly_chart(fig,use_container_width=True,height=800)
 
 # plot 1
+st.markdown("## 2. Phân bố số lượng đơn hàng")
 tab1, tab2 = st.tabs(["Market", "Category"])
 with tab1:
-    st.markdown("### 2. Phân bố số lượng đơn hàng")
+    
     df_market_pie = df.groupby(df['market'])['order_id'].count()
     fig_col1, fig_col2 = st.columns([5, 5])
     with fig_col1:
@@ -338,7 +427,6 @@ with tab1:
         fig = go.Figure(data=[data], layout=layout)
         st.plotly_chart(fig,use_container_width=True,height=800)
 with tab2:
-    st.markdown("### 2. Phân bố số lượng đơn hàng")
     df_market_pie = df.groupby(df['category'])['order_id'].count()
     fig_col1, fig_col2 = st.columns([5, 5])
     with fig_col1:
@@ -375,9 +463,9 @@ with tab2:
         st.plotly_chart(fig,use_container_width=True,height=800)
 
 # plot 1b
+st.markdown("## 3. Phân bố lợi nhuận")
 tab1, tab2 = st.tabs(["Market", "Category"])
 with tab1:
-    st.markdown("### 3. Phân bố lợi nhuận")
     df_market_pie = df.groupby(df['market'])['order_id'].count()
     fig_col1, fig_col2 = st.columns([5, 5])
     with fig_col1:
@@ -416,7 +504,6 @@ with tab1:
         fig = go.Figure(data=[data], layout=layout)
         st.plotly_chart(fig,use_container_width=True,height=800)
 with tab2:
-    st.markdown("### 3. Phân bố lợi nhuận")
     df_market_pie = df.groupby(df['category'])['order_id'].count()
     fig_col1, fig_col2 = st.columns([5, 5])
     with fig_col1:
@@ -456,9 +543,9 @@ with tab2:
         st.plotly_chart(fig,use_container_width=True,height=800)
 
 # plot 1c
+st.markdown("## 4. Tổng doanh thu")
 tab1, tab2 = st.tabs(["Market", "Category"])
 with tab1:
-    st.markdown("#### 4. Tổng doanh thu")
     df_market_pie = df.groupby(df['market'])['order_id'].count()
     fig_col1, fig_col2 = st.columns([5, 5])
     with fig_col1:
@@ -497,7 +584,6 @@ with tab1:
         fig = go.Figure(data=[data], layout=layout)
         st.plotly_chart(fig,use_container_width=True,height=800)
 with tab2:
-    st.markdown("#### 4. Tổng doanh thu")
     df_market_pie = df.groupby(df['market'])['order_id'].count()
     fig_col1, fig_col2 = st.columns([5, 5])
     with fig_col1:
@@ -537,8 +623,6 @@ with tab2:
         st.plotly_chart(fig,use_container_width=True,height=800)
 
 # plot 3
-
-st.markdown("#### 2. Các nền tảng học tập nào được các kỹ sư và các học sinh tin dùng nhất?")
 
 df_market_pie = df.groupby(df['market'])['order_id'].count()
 fig_col1, fig_col2 = st.columns([5, 5])
@@ -602,7 +686,7 @@ with col_tab1_2:
     st.plotly_chart(df_salary_tab5,use_container_width=True,height=800)
 
 # plot 5
-st.markdown("### 3. Top 10")
+st.markdown("## 5. Top 10")
 tab1, tab2, tab3 = st.tabs(["Top 10 sales product", "Top 10 quantity product", "Top 10 customers"])
 with tab1:
     products_sales = pd.DataFrame(df.groupby('product_name')["sales"].sum())
@@ -616,3 +700,7 @@ with tab3:
     top_10_customers = pd.DataFrame(df.groupby('customer_name')["order_id"].count())
     top_10_customers = top_10_customers.nlargest(columns="order_id", n=10)
     st.dataframe(top_10_customers)
+
+st.markdown("## 6. ADF Test của từng loại Category:")
+tab1, tab2, tab3 = st.tabs(["Furniture", "Office Supplies", "Technology"])
+
