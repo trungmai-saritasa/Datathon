@@ -51,21 +51,21 @@ with tab1:
     stats_age_col1, _ = st.columns(2)
     stats_age_col1.metric(
         label="Sum",
-        value=df_year["profit"].sum(),
+        value=round(df_year["profit"].sum(), 2),
         delta=round(float(df_year["profit"].sum() - df_pre_year["profit"].sum()), 2),
     )
 with tab2:
     stats_age_col1, _ = st.columns(2)
     stats_age_col1.metric(
         label="Sum",
-        value=df_year["sales"].sum(),
+        value=round(df_year["sales"].sum(), 2),
         delta=round(float(df_year["sales"].sum() - df_pre_year["sales"].sum()), 2),
     )
 with tab3:
     stats_age_col1, _ = st.columns(2)
     stats_age_col1.metric(
         label="Sum",
-        value=df_year["quantity"].sum(),
+        value=round(df_year["quantity"].sum(), 2),
         delta=round(float(df_year["quantity"].sum() - df_pre_year["quantity"].sum()), 2),
     )
 
