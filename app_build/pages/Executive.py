@@ -624,7 +624,7 @@ with tab2:
 
 # plot 3
 
-st.markdown("#### 3. Lợi nhuận và số lượng")
+st.markdown("### Lợi nhuận và số lượng")
 
 df_market_pie = df.groupby(df['market'])['order_id'].count()
 fig_col1, fig_col2 = st.columns([5, 5])
@@ -680,7 +680,7 @@ with col_tab1_1:
     st.plotly_chart(fig_boxplot_world_tab,use_container_width=True,height=800)
 with col_tab1_2:
     year_filter_tab5 = col_tab1_2.selectbox("Chọn năm khảo sát phân bổ lợi nhuận", df['order_date'].dt.year.unique())
-    st.caption(f"5.1. Phân bổ lợi nhuận theo Market của tech workers trong năm {year_filter_tab5} ")
+    st.caption(f"1.2. Phân bổ lợi nhuận theo Market của tech workers trong năm {year_filter_tab5} ")
 
     df_year_tab5 = df[df["order_date"].dt.year == year_filter_tab5]
     df_salary_tab5 = px.box(df_year_tab5, x="market", y='profit', hover_data=df.columns)
