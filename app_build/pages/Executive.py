@@ -703,7 +703,7 @@ with tab3:
     top_10_customers = top_10_customers.nlargest(columns="order_id", n=10)
     st.dataframe(top_10_customers)
 
-st.markdown("## 6. ADF Test của từng loại Category:")
+st.markdown("## 6. ADF Test của từng loại Category")
 tab1, tab2, tab3 = st.tabs(["Furniture", "Office Supplies", "Technology"])
 with tab1:
     st.info("""**Augmented Dickey-Fuller Test:**
