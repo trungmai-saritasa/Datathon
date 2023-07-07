@@ -263,23 +263,23 @@ cleaned_df = cleaned_df.drop(["order_date", "discount", "profit"], axis=1)
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=cleaned_df.index, y=cleaned_df['sales'], mode='lines', name='Sales in Time Series'))
-fig.update_layout(title='Sales in Time Series', xaxis_title='Time', yaxis_title='Sales')
+fig.update_layout(title='Sales in Time Series from 2011 to 2013', xaxis_title='Time', yaxis_title='Sales')
 st.plotly_chart(fig)
 
-# cv = RepeatedStratifiedKFold(n_splits=2, n_repeats=10)
-# linear_grid = {'positive': [True,False], 
-#                 'fit_intercept': [True, False], 
-#                 'n_jobs': [1, -1]}
-# linear = GridSearchCV( lr(), param_grid=linear_grid,
-#                           cv=cv, 
-#                           scoring='completeness_score', 
-#                           verbose=0)
-# linear.fit(X_train, y_train)
+cv = RepeatedStratifiedKFold(n_splits=2, n_repeats=10)
+linear_grid = {'positive': [True,False], 
+                'fit_intercept': [True, False], 
+                'n_jobs': [1, -1]}
+linear = GridSearchCV( lr(), param_grid=linear_grid,
+                          cv=cv, 
+                          scoring='completeness_score', 
+                          verbose=0)
+linear.fit(X_train, y_train)
 
-model2 = lr().fit(X_train, y_train)
+model2 = lr(**linear.best_params_).fit(X_train, y_train)
 pred = model2.predict(X_test)
 result2 = pd.DataFrame(pred, columns=['sales'], index=X_test.index)
-# st.write("Bộ param tốt nhất:", linear.best_params_)
+st.write("Bộ param tốt nhất:", linear.best_params_)
 st.write('MSE of biased model:', metrics.mean_squared_error(y_test, pred))
 st.write('MAE of biased model:', metrics.mean_absolute_error(y_test, pred))
 st.write('Model score:', model2.score(X_test, y_test))
