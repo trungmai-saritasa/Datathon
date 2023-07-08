@@ -2,15 +2,13 @@ import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression as lr
 from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
 from sklearn import metrics
 import plotly.express as px
 from sklearn.model_selection import train_test_split, KFold, RepeatedStratifiedKFold, GridSearchCV
 import plotly.graph_objects as go
-import tensorflow as tf
 from tensorflow import keras
 from keras import layers
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import r2_score
 import streamlit as st
 
